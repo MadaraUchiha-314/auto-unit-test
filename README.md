@@ -24,4 +24,4 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 - [ ] C functions with takes pointer arguments
 - [ ] C functions with returns nested struct value
 
-[Simple C function]: examples/c/simple-functions/simple-function.h
+[Simple C function]: examples/c/simple-functions/simple-functions.h
