@@ -1,0 +1,21 @@
+{
+    "name": "simple-functions-test",
+    "driver": "src/drivers/C",
+    "includes": ["simple-functions.h"],
+    "test-cases": [
+        {
+            "function-name": "doubleInt",
+            "arguments": [
+                5
+            ],
+            "return-value": 10
+        },
+        {
+            "function-name": "doubleInt",
+            "arguments": [
+                10
+            ],
+            "return-value": 20
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "name": "simple-structs-test",
+    "driver": "src/drivers/C",
+    "includes": [],
+    "test-cases": [
+        {
+            "function-name": "moduloSquareComplex",
+            "arguments": [
+                {
+                    "type": "Complex",
+                    "value": {
+                        "real": 3,
+                        "img": 4
+                    }
+                }
+            ],
+            "return-value": 25
+        },
+        {
+            "function-name": "moduloSquareComplex",
+            "arguments": [
+                {
+                    "type": "Complex",
+                    "value": {
+                        "real": 5,
+                        "img": 12
+                    }
+                }
+            ],
+            "return-value": 13
+        }
+    ]
+}
