@@ -1,7 +1,7 @@
 {
     "name": "simple-structs-test",
     "driver": "src/drivers/C",
-    "includes": [],
+    "includes": ["simple-structs.h"],
     "test-cases": [
         {
             "function-name": "moduloSquareComplex",
@@ -27,7 +27,7 @@
                     }
                 }
             ],
-            "return-value": 13
+            "return-value": 169
         }
     ]
 }

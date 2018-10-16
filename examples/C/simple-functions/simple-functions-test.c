@@ -11,15 +11,21 @@
 /*
 * Other header files that are required by the program
 */
-{headerFiles}
+#include "simple-functions.h"
 
-int main() {openingBrace}
+
+int main() {
     /*
     * The whole body of the program.
     */
-    {programBody}
+    int var_0 = 5;
+assert(doubleInt(var_0) == 10);
+int var_1 = 10;
+assert(doubleInt(var_1) == 20);
+
+
     /*
     * The good ol' return 0;
     */
     return 0;
-{closeingBrace}
+}

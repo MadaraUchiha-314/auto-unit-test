@@ -43,13 +43,25 @@ def is_primitive(value) :
 # Things to keep in mind :
 # Nested structs.
 # Self-Referential structs.
-def construct_argument(argument) :
+def construct_argument(argument, top_level=True) :
     arg_init = ""
     arg_string = ""
     # First lets find out if the argument is primitive or not.
     if not is_primitive(argument) :
         # Not a primitive argument.
-        pass
+        for key in argument["value"] :
+            np_arg_init, np_arg_string = construct_argument(argument["value"][key], False)
+            arg_init += np_arg_init
+            arg_string += DOT + key + EQUAL + np_arg_string + COMMA
+        arg_string = arg_string[:-1] # Removing the comma
+        # We will add the opening and closing braces now.
+        arg_string = OPEN_BRACE + arg_string + CLOSE_BRACE
+        if not top_level :
+            return arg_init, arg_string
+        else :
+            var_name = get_next_variable()
+            arg_init += STRUCT_DEC_INIT.format(structType=argument["type"], variableName=var_name, value=arg_string)
+            return arg_init, var_name
     else :
         # Primitive argument.
         # Now, now. What are the primitive values in C ???
