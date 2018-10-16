@@ -7,6 +7,14 @@ No writing unit tests again!
 - Given the current state, execute the unit tests, take a snapshot and save it for later comparison.
 
 ## Generating and running a test
+- To generate a unit-test for all suites
+```shell
+make all
+```
+- To run all unit tests generated.
+```shell
+make test-all
+```
 - To generate a unit-test for a suite, say `examples/C/simple-functions/simple-functions-test.json`
 ```shell
 make c-unit-tests test=examples/C/simple-functions/simple-functions-test
@@ -15,6 +23,7 @@ make c-unit-tests test=examples/C/simple-functions/simple-functions-test
 ```shell
 make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 ```
+
 
 ## Current State.
 - [x] Simple C function working. [Simple C function]
