@@ -19,9 +19,8 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 ## Current State.
 - [x] Simple C function working. [Simple C function]
 - [x] C functions with takes struct argument
-- [ ] C functions with takes nested struct argument
+- [x] C functions with takes nested struct argument
 - [ ] C functions with returns nested struct value
 - [ ] C functions with takes pointer arguments
-- [ ] C functions with returns nested struct value
 
 [Simple C function]: examples/C/simple-functions/simple-functions.h

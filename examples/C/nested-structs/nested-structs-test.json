@@ -1,0 +1,57 @@
+{
+    "name": "simple-structs-test",
+    "driver": "src/drivers/C",
+    "includes": ["nested-structs.h"],
+    "test-cases": [
+        {
+            "function-name": "CalcDistanceSquare",
+            "arguments": [
+                {
+                    "type": "Distance",
+                    "value": {
+                        "p1": {
+                            "type": "Point",
+                            "value": {
+                                "x": 0,
+                                "y": 0
+                            }
+                        },
+                        "p2": {
+                            "type": "Point",
+                            "value": {
+                                "x": 0,
+                                "y": 1
+                            }
+                        }
+                    }
+                }
+            ],
+            "return-value": 1
+        },
+        {
+            "function-name": "CalcDistanceSquare",
+            "arguments": [
+                {
+                    "type": "Distance",
+                    "value": {
+                        "p1": {
+                            "type": "Point",
+                            "value": {
+                                "x": 0,
+                                "y": 0
+                            }
+                        },
+                        "p2": {
+                            "type": "Point",
+                            "value": {
+                                "x": 5,
+                                "y": 5
+                            }
+                        }
+                    }
+                }
+            ],
+            "return-value": 50
+        }
+    ]
+}

@@ -14,4 +14,4 @@ OPEN_BRACE = "{"
 CLOSE_BRACE = "}"
 
 INT_DEC_INIT = "int {variableName} = {value}" + SEMI_COLON
-STRUCT_DEC_INIT = "struct {structType} {variableName} = {value}" + SEMI_COLON
+STRUCT_DEC_INIT = "struct {structType} {variableName} = {value}" + SEMI_COLON + NEW_LINE
