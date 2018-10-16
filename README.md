@@ -25,4 +25,4 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 
 [Simple C function]: examples/C/simple-functions/simple-functions.h
 [Simple Struct function]: examples/C/simple-structs/simple-structs.h
-[Nested Struct function]: examples/C/nested-functions/nested-functions.h
+[Nested Struct function]: examples/C/nested-structs/nested-structs.h
