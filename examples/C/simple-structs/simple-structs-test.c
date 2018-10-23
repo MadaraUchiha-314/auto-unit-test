@@ -21,11 +21,13 @@ int main() {
 	int var_0 = 3;
 	int var_1 = 4;
 	struct Complex var_2 = {.real=var_0,.img=var_1};
-	assert(moduloSquareComplex(var_2) == 25);
-	int var_3 = 5;
-	int var_4 = 12;
-	struct Complex var_5 = {.real=var_3,.img=var_4};
-	assert(moduloSquareComplex(var_5) == 169);
+	int var_3 = moduloSquareComplex(var_2);
+	assert(var_3 == 25);
+	int var_4 = 5;
+	int var_5 = 12;
+	struct Complex var_6 = {.real=var_4,.img=var_5};
+	int var_7 = moduloSquareComplex(var_6);
+	assert(var_7 == 169);
 
 	/*
 	 * The good ol' return 0;

@@ -67,7 +67,7 @@ def construct_argument(argument, top_level=True) :
         # Now, now. What are the primitive values in C ???
         if type(argument) is int :
             var_name = get_next_variable()
-            arg_init += INT_DEC_INIT.format(variableName=var_name, value=argument) + NEW_LINE
+            arg_init += INT_DEC_INIT.format(variableName=var_name, value=argument)
             arg_string += var_name
         else :
             raise ValueError("Could not resolve the primitive data type")
@@ -83,10 +83,12 @@ def generate_function_call(function_name, arguments) :
     # There are 2 cases.
     # One that the argument is primitive.
     # Second that the argument is non-primitive (struct).
+    print "Arguments are : ", arguments
     for argument in arguments :
+        print "Generating Argument : ",argument
         # Returns the initialised arguments and the
-        argument_init_string, arguments_string = construct_argument(argument)
-        arguments_string = arguments_string + COMMA
+        argument_init_string, argument_string = construct_argument(argument)
+        arguments_string += argument_string + COMMA
         arguments_init_string += argument_init_string
 
     # We will add the function name, opening bracket, arguments, opening bracket.
@@ -94,14 +96,29 @@ def generate_function_call(function_name, arguments) :
 
     return arguments_init_string, function_call_string
 
-def wrap_with_assert(function_call_string, value) :
-    assert_string = ""
+def construct_return_value(function_call_string, value) :
+    var_name = get_next_variable()
+    return_value_string = ""
     if not is_primitive(value) :
-        # Not a primitive value.
-        pass
+        return_value_string = STRUCT_DEC_INIT.format(structType=value["type"], variableName=var_name, value=function_call_string)
     else :
         if type(value) is int :
-            assert_string = ASSERT.format(value1=function_call_string, value2=value)
+            return_value_string = INT_DEC_INIT.format(variableName=var_name, value=function_call_string)
+        else :
+            raise ValueError("Could not resolve the primitive data type")
+    return var_name, return_value_string
+
+def wrap_with_assert(return_variable, return_value) :
+    print "Value is : ",return_value
+    assert_string = ""
+    if not is_primitive(return_value) :
+        # Not a primitive value.
+        # We recurse until we find a leaf node and do assert on that.
+        for key in return_value["value"] :
+            assert_string += wrap_with_assert(return_variable + DOT + key, return_value["value"][key])
+    else :
+        if type(return_value) is int :
+            assert_string = ASSERT.format(value1=return_variable, value2=return_value)
         else :
             raise ValueError("Could not resolve the primitive data type")
     return assert_string
@@ -109,7 +126,9 @@ def wrap_with_assert(function_call_string, value) :
 
 def generate_single_test(test) :
     arguments_init_string, function_call_string = generate_function_call(test["function-name"], test["arguments"])
-    return arguments_init_string, wrap_with_assert(function_call_string, test["return-value"])
+    return_var_name, return_value_string = construct_return_value(function_call_string, test["return-value"])
+    arguments_init_string += return_value_string
+    return arguments_init_string, wrap_with_assert(return_var_name, test["return-value"])
 
 def generate_tests(test_cases) :
     test_cases_string = ""

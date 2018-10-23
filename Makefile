@@ -17,10 +17,12 @@ all:
 	make c-unit-tests test=examples/C/simple-functions/simple-functions-test
 	make c-unit-tests test=examples/C/simple-structs/simple-structs-test
 	make c-unit-tests test=examples/C/nested-structs/nested-structs-test
+	make c-unit-tests test=examples/C/struct-return/struct-return-test
 test-all:
 	make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 	make test-c-unit-tests test=examples/C/simple-structs/simple-structs-test
 	make test-c-unit-tests test=examples/C/nested-structs/nested-structs-test
+	make test-c-unit-tests test=examples/C/struct-return/struct-return-test
 clean:
 	find . -path './bin/**/*.out' -delete
 	find . -path './examples/C/**/*.c' -delete

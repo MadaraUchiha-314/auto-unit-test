@@ -23,13 +23,15 @@ int main() {
 	int var_2 = 0;
 	int var_3 = 0;
 	struct Distance var_4 = {.p2={.y=var_0,.x=var_1},.p1={.y=var_2,.x=var_3}};
-	assert(CalcDistanceSquare(var_4) == 1);
-	int var_5 = 5;
+	int var_5 = CalcDistanceSquare(var_4);
+	assert(var_5 == 1);
 	int var_6 = 5;
-	int var_7 = 0;
+	int var_7 = 5;
 	int var_8 = 0;
-	struct Distance var_9 = {.p2={.y=var_5,.x=var_6},.p1={.y=var_7,.x=var_8}};
-	assert(CalcDistanceSquare(var_9) == 50);
+	int var_9 = 0;
+	struct Distance var_10 = {.p2={.y=var_6,.x=var_7},.p1={.y=var_8,.x=var_9}};
+	int var_11 = CalcDistanceSquare(var_10);
+	assert(var_11 == 50);
 
 	/*
 	 * The good ol' return 0;

@@ -11,7 +11,7 @@
 /*
  * Other header files that are required by the program
  */
-#include "simple-functions.h"
+#include "struct-return.h"
 
 
 int main() {
@@ -19,11 +19,10 @@ int main() {
 	 * The whole body of the program.
 	 */
 	int var_0 = 5;
-	int var_1 = doubleInt(var_0);
-	assert(var_1 == 10);
-	int var_2 = 10;
-	int var_3 = doubleInt(var_2);
-	assert(var_3 == 20);
+	int var_1 = 10;
+	struct Person var_2 = getPerson(var_0,var_1);
+	assert(var_2.age == 5);
+	assert(var_2.weight == 10);
 
 	/*
 	 * The good ol' return 0;
