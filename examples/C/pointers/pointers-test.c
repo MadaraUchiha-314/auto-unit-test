@@ -19,17 +19,23 @@ int main() {
 	/*
 	 * The whole body of the program.
 	 */
+
+	/* TEST CASE START : # 0 */
 	int var_0 = 5;
 	int var_1 = 10;
 	struct Person* var_2 = (struct Person*) malloc(sizeof(struct Person));
 	*var_2 = (struct Person) {.age=var_0,.weight=var_1};
 	int var_3 = getRank(var_2);
 	assert(var_3 == 50);
+	/* TEST CASE END : # 0 */
+
+	/* TEST CASE START : # 1 */
 	int var_4 = 5;
 	int var_5 = 10;
 	struct Person* var_6 = getPerson(var_4,var_5);
 	assert(var_6->age == 5);
 	assert(var_6->weight == 10);
+	/* TEST CASE END : # 1 */
 
 	/*
 	 * The good ol' return 0;

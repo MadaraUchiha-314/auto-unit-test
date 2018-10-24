@@ -157,10 +157,14 @@ def generate_single_test(test) :
 
 def generate_tests(test_cases) :
     test_cases_string = ""
+    test_case_number = 0
     for test in test_cases :
         arg_init, assert_string = generate_single_test(test)
+        test_cases_string += TEST_CASE_HEADER.format(testCaseNumber=test_case_number)
         test_cases_string += arg_init
         test_cases_string += assert_string
+        test_cases_string += TEST_CASE_FOOTER.format(testCaseNumber=test_case_number)
+        test_case_number += 1
     return test_cases_string
 
 def parse_input(input_file_name) :

@@ -20,3 +20,6 @@ STRUCT_DEC_INIT = "struct {structType} {variableName} = {value}" + SEMI_COLON + 
 PRIMITIVE_POINTER_DEC = "{dataType}* {variableName} = ({dataType}*) malloc(sizeof({dataType}))" + SEMI_COLON + NEW_LINE
 STRUCT_POINTER_DEC = "struct {dataType}* {variableName} = (struct {dataType}*) malloc(sizeof(struct {dataType}))" + SEMI_COLON + NEW_LINE
 STRUCT_POINTER_INIT = "*{variableName} = (struct {dataType}) {value}" + SEMI_COLON + NEW_LINE
+
+TEST_CASE_HEADER = NEW_LINE + "/* TEST CASE START : # {testCaseNumber} */" + NEW_LINE
+TEST_CASE_FOOTER = "/* TEST CASE END : # {testCaseNumber} */" + NEW_LINE

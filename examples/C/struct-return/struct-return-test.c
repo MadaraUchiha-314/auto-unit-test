@@ -19,11 +19,14 @@ int main() {
 	/*
 	 * The whole body of the program.
 	 */
+
+	/* TEST CASE START : # 0 */
 	int var_0 = 5;
 	int var_1 = 10;
 	struct Person var_2 = getPerson(var_0,var_1);
 	assert(var_2.age == 5);
 	assert(var_2.weight == 10);
+	/* TEST CASE END : # 0 */
 
 	/*
 	 * The good ol' return 0;

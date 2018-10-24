@@ -19,6 +19,8 @@ int main() {
 	/*
 	 * The whole body of the program.
 	 */
+
+	/* TEST CASE START : # 0 */
 	int var_0 = 20;
 	int var_1 = 10;
 	struct Point var_2 = {.y=var_0,.x=var_1};
@@ -26,6 +28,7 @@ int main() {
 	struct Point var_4 = scalarMultiplication(var_2,var_3);
 	assert(var_4.y == 100);
 	assert(var_4.x == 50);
+	/* TEST CASE END : # 0 */
 
 	/*
 	 * The good ol' return 0;

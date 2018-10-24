@@ -19,12 +19,18 @@ int main() {
 	/*
 	 * The whole body of the program.
 	 */
+
+	/* TEST CASE START : # 0 */
 	int var_0 = 5;
 	int var_1 = doubleInt(var_0);
 	assert(var_1 == 10);
+	/* TEST CASE END : # 0 */
+
+	/* TEST CASE START : # 1 */
 	int var_2 = 10;
 	int var_3 = doubleInt(var_2);
 	assert(var_3 == 20);
+	/* TEST CASE END : # 1 */
 
 	/*
 	 * The good ol' return 0;
