@@ -73,7 +73,9 @@ def construct_argument(argument, top_level=True) :
                 pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=get_pointer_data_type(argument), variableName=var_name)
                 pointer_variable_init = POINTER_INIT.format(variableName=var_name,value=arg_string)
                 arg_init += pointer_variable_dec + pointer_variable_init
-            return arg_init, var_name
+                return arg_init, var_name
+            else :
+                return arg_init, arg_string
         else :
             if is_pointer(argument) :
                 var_name = get_next_variable()

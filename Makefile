@@ -14,11 +14,11 @@ test-c-unit-tests:
 	# Executing the generated binary
 	./bin/$(test)/output.out
 all:
-	# make c-unit-tests test=examples/C/simple-functions/simple-functions-test
-	# make c-unit-tests test=examples/C/simple-structs/simple-structs-test
-	# make c-unit-tests test=examples/C/nested-structs/nested-structs-test
-	# make c-unit-tests test=examples/C/struct-return/struct-return-test
-	# make c-unit-tests test=examples/C/misc/misc-test
+	make c-unit-tests test=examples/C/simple-functions/simple-functions-test
+	make c-unit-tests test=examples/C/simple-structs/simple-structs-test
+	make c-unit-tests test=examples/C/nested-structs/nested-structs-test
+	make c-unit-tests test=examples/C/struct-return/struct-return-test
+	make c-unit-tests test=examples/C/misc/misc-test
 	make c-unit-tests test=examples/C/pointers/pointers-test
 test-all:
 	make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test

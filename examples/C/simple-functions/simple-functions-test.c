@@ -7,7 +7,7 @@
  * assert.h is included for assertions that we make while writing the unit tests.
  */
 #include <assert.h>
-
+#include <stdlib.h>
 /*
  * Other header files that are required by the program
  */
