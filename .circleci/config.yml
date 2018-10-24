@@ -7,7 +7,7 @@ jobs:
       - image: circleci/python:2.7
     steps:
       - checkout
-      - sudo apt-get install vim
+      - run: sudo apt-get install vim
       - run:
           name: "Build"
           command: "make all"
