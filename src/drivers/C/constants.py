@@ -4,6 +4,7 @@ COMMA = ","
 DOT = "."
 EQUAL = "="
 STAR = "*"
+ARROW = "->"
 
 INCLUDE = "#include \"{headerFileName}\""
 ASSERT = "assert({value1} == {value2})" + SEMI_COLON + NEW_LINE

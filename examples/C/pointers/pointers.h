@@ -15,3 +15,10 @@ struct Person {
 int getRank(struct Person* p) {
     return p->age * p->weight;
 }
+
+struct Person* getPerson(int age, int weight) {
+    struct Person* p = (struct Person*) malloc(sizeof(struct Person));
+    p->age = age;
+    p->weight = weight;
+    return p;
+}

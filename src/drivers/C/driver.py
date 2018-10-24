@@ -137,7 +137,10 @@ def wrap_with_assert(return_variable, return_value) :
         # Not a primitive value.
         # We recurse until we find a leaf node and do assert on that.
         for key in return_value["value"] :
-            assert_string += wrap_with_assert(return_variable + DOT + key, return_value["value"][key])
+            separator = DOT
+            if is_pointer(return_value) :
+                separator = ARROW
+            assert_string += wrap_with_assert(return_variable + separator + key, return_value["value"][key])
     else :
         if type(return_value) is int :
             assert_string = ASSERT.format(value1=return_variable, value2=return_value)

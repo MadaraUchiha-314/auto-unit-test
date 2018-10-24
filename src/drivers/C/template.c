@@ -5,6 +5,7 @@
 
 /*
 * assert.h is included for assertions that we make while writing the unit tests.
+* stdlib.h is used for malloc.
 */
 #include <assert.h>
 #include <stdlib.h>

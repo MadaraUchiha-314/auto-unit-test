@@ -31,7 +31,7 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 - [x] C functions which takes nested struct argument. [Nested Struct function]
 - [x] C functions which returns nested struct value. [Struct Return function]
 - [x] C functions which takes pointer arguments. [Pointer Function]
-- [ ] C functions which return pointer arguments
+- [x] C functions which return pointer arguments
 - [ ] C functions which modify pointer arguments
 - [ ] C functions which takes arrays (through pointer)
 
