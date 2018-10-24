@@ -1,4 +1,4 @@
-# auto-unit-test
+# auto-unit-test [![CircleCI](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master.svg?style=svg)](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master)
 No writing unit tests again!
 
 ## Goals

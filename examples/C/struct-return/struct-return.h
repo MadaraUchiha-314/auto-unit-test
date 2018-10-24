@@ -6,7 +6,7 @@ struct Person {
     int weight;
 };
 
-struct Person getPerson(age, weight) {
+struct Person getPerson(int age, int weight) {
     struct Person p;
     p.age = age;
     p.weight = weight;
