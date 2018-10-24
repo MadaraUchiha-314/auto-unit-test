@@ -1,0 +1,27 @@
+{
+    "name": "misc-test",
+    "driver": "src/drivers/C",
+    "includes": ["misc.h"],
+    "test-cases": [
+        {
+            "function-name": "scalarMultiplication",
+            "arguments": [
+                {
+                    "type": "Point",
+                    "value": {
+                        "x": 10,
+                        "y": 20
+                    }
+                },
+                5
+            ],
+            "return-value": {
+                "type": "Point",
+                "value": {
+                    "x": 50,
+                    "y": 100
+                }
+            }
+        }
+    ]
+}

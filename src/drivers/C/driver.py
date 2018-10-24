@@ -38,6 +38,17 @@ def is_primitive(value) :
         return True
     return False
 
+def is_pointer(value) :
+    try :
+        if value["type"][-1] == STAR :
+            return True
+        else :
+            return False
+    except :
+        return False
+
+def get_pointer_data_type(value) :
+    return value["type"][:-1] # Removing the * from the Pointer
 
 # Given an argument whether its a primitive type or a struct, it will construct it.
 # Things to keep in mind :
@@ -57,11 +68,23 @@ def construct_argument(argument, top_level=True) :
         # We will add the opening and closing braces now.
         arg_string = OPEN_BRACE + arg_string + CLOSE_BRACE
         if not top_level :
-            return arg_init, arg_string
-        else :
-            var_name = get_next_variable()
-            arg_init += STRUCT_DEC_INIT.format(structType=argument["type"], variableName=var_name, value=arg_string)
+            if is_pointer(argument) :
+                var_name = get_next_variable()
+                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=get_pointer_data_type(argument), variableName=var_name)
+                pointer_variable_init = POINTER_INIT.format(variableName=var_name,value=arg_string)
+                arg_init += pointer_variable_dec + pointer_variable_init
             return arg_init, var_name
+        else :
+            if is_pointer(argument) :
+                var_name = get_next_variable()
+                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=get_pointer_data_type(argument), variableName=var_name)
+                pointer_variable_init = STRUCT_POINTER_INIT.format(variableName=var_name,value=arg_string, dataType=get_pointer_data_type(argument))
+                arg_init += pointer_variable_dec + pointer_variable_init
+                return arg_init, var_name
+            else :
+                var_name = get_next_variable()
+                arg_init += STRUCT_DEC_INIT.format(structType=argument["type"], variableName=var_name, value=arg_string)
+                return arg_init, var_name
     else :
         # Primitive argument.
         # Now, now. What are the primitive values in C ???
@@ -83,9 +106,7 @@ def generate_function_call(function_name, arguments) :
     # There are 2 cases.
     # One that the argument is primitive.
     # Second that the argument is non-primitive (struct).
-    print "Arguments are : ", arguments
     for argument in arguments :
-        print "Generating Argument : ",argument
         # Returns the initialised arguments and the
         argument_init_string, argument_string = construct_argument(argument)
         arguments_string += argument_string + COMMA
@@ -109,7 +130,6 @@ def construct_return_value(function_call_string, value) :
     return var_name, return_value_string
 
 def wrap_with_assert(return_variable, return_value) :
-    print "Value is : ",return_value
     assert_string = ""
     if not is_primitive(return_value) :
         # Not a primitive value.

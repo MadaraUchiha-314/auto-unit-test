@@ -1,5 +1,5 @@
 /*
-* Lets define a complex number
+* Lets define a point
 */
 struct Point {
     int x; // The real part

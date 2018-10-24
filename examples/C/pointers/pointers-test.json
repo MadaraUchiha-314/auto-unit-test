@@ -1,0 +1,20 @@
+{
+    "name": "pointers-test",
+    "driver": "src/drivers/C",
+    "includes": ["pointers.h"],
+    "test-cases": [
+        {
+            "function-name": "getRank",
+            "arguments": [
+                {
+                    "type": "Person*",
+                    "value": {
+                        "age": 5,
+                        "weight": 10
+                    }
+                }
+            ],
+            "return-value": 50
+        }
+    ]
+}
