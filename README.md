@@ -26,57 +26,15 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 
 ## Current State.
 
-<table>
-<tr>
-    <th>Functionality</th>
-    <th>Status</th>
-    <th>Library Code</th>
-    <th>Auto Generated Unit Test</th>
-</tr>
-<tr>
-    <td>Simple C function working.</td>
-    <td>✅</td>
-    <td>[Simple C function]</td>
-    <td>[Simple C function Unit Test]</td>
-</tr>
-<tr>
-    <td>C functions which takes struct argument.</td>
-    <td>✅</td>
-    <td>[Simple Struct function]</td>
-    <td>[Simple Struct function Unit Test]</td>
-</tr>
-<tr>
-    <td>C functions which takes nested struct argument.</td>
-    <td>✅</td>
-    <td>[Nested Struct function]</td>
-    <td>[Nested Struct function Unit Test]</td>
-</tr>
-<tr>
-    <td>C functions which returns nested struct value.</td>
-    <td>✅</td>
-    <td>[Struct Return function]</td>
-    <td>[Struct Return function Unit Test]</td>
-</tr>
-<tr>
-    <td> C functions which takes pointer arguments.</td>
-    <td>✅</td>
-    <td>[Pointer Function]</td>
-    <td>[Pointer Function Unit Test]</td>
-</tr>
-<tr>
-    <td> C functions which returns pointer.</td>
-    <td>✅</td>
-    <td>[Pointer Function]</td>
-    <td>[Pointer Function Unit Test]</td>
-</tr>
-<tr>
-    <td>C functions which takes arrays (through pointer)</td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>
-</table>
-
+|Functionality|Status|Library Code|Auto Generated Unit Test|
+|--- |--- |--- |--- |
+|Simple C function working.|✅|[Simple C function]|[Simple C function Unit Test]|
+|C functions which takes struct argument.|✅|[Simple Struct function]|[Simple Struct function Unit Test]|
+|C functions which takes nested struct argument.|✅|[Nested Struct function]|[Nested Struct function Unit Test]|
+|C functions which returns nested struct value.|✅|[Struct Return function]|[Struct Return function Unit Test]|
+|C functions which takes pointer arguments.|✅|[Pointer Function]|[Pointer Function Unit Test]|
+|C functions which returns pointer.|✅|[Pointer Function]|[Pointer Function Unit Test]|
+|C functions which takes arrays (through pointer)|||||
 
 [Simple C function]: examples/C/simple-functions/simple-functions.h
 [Simple C function Unit Test]: examples/C/simple-functions/simple-functions-test.c
