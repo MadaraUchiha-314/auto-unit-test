@@ -44,6 +44,13 @@ int main() {
 	assert(var_8 == 11);
 	/* TEST CASE END : # 2 */
 
+	/* TEST CASE START : # 3 */
+	int* var_9 = (int*) malloc(sizeof(int));
+	*var_9 = 10;
+	int* var_10 = getInt(var_9);
+	assert(*var_10 == 10);
+	/* TEST CASE END : # 3 */
+
 	/*
 	 * The good ol' return 0;
 	 */

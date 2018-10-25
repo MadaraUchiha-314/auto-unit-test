@@ -166,7 +166,7 @@ def construct_return_value(function_call_string, value) :
         if data_type != None :
             return_value_string = PRIMITIVE_DEC_INIT.format(dataType=data_type,variableName=var_name, value=function_call_string)
         else :
-            raise ValueError("Could not resolve the primitive data type")
+            return_value_string = PRIMITIVE_DEC_INIT.format(dataType=value["type"],variableName=var_name, value=function_call_string)
     return var_name, return_value_string
 
 def wrap_with_assert(return_variable, return_value) :
@@ -181,7 +181,8 @@ def wrap_with_assert(return_variable, return_value) :
             assert_string += wrap_with_assert(return_variable + separator + key, return_value["value"][key])
     else :
         if is_pointer(return_value) :
-            pass
+            return_variable = STAR + return_variable
+            assert_string = ASSERT.format(value1=return_variable, value2=return_value["value"])
         else :
             data_type, data = get_primitive_data_type(return_value)
             if data_type != None :

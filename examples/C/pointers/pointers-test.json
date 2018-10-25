@@ -38,6 +38,19 @@
                 }
             ],
             "return-value": 11
+        },
+        {
+            "function-name": "getInt",
+            "arguments": [
+                {
+                    "type": "int*",
+                    "value": 10
+                }
+            ],
+            "return-value": {
+                "type": "int*",
+                "value": 10
+            }
         }
     ]
 }

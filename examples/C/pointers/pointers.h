@@ -27,3 +27,9 @@ int modifyInt(int* i) {
     *i += 1;
     return *i;
 }
+
+int* getInt(int *i) {
+    int* j = (int*) malloc(sizeof(int));
+    *j = *i;
+    return j;
+}
