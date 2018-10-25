@@ -36,7 +36,8 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 |C functions which takes pointer arguments.|✅|[Pointer Function]|[Pointer Function Unit Test]|
 |C functions which returns pointer.|✅|[Pointer Function]|[Pointer Function Unit Test]|
 |Support for all primitive data-types.|✅|[Data Type Function]|[Data Type Unit Test]|
-|C functions which takes arrays (through pointer)|||||
+|C functions which takes arrays (through pointer)||||
+|Monitoring side-effects and global changes|||||
 
 [Simple C function]: examples/C/simple-functions/simple-functions.h
 [Simple C function Unit Test]: examples/C/simple-functions/simple-functions-test.c
