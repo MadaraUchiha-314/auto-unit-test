@@ -22,3 +22,8 @@ struct Person* getPerson(int age, int weight) {
     p->weight = weight;
     return p;
 }
+
+int modifyInt(int* i) {
+    *i += 1;
+    return *i;
+}

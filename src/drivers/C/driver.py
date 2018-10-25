@@ -31,12 +31,23 @@ def generate_header_files(list_of_headers) :
         header_file_string += header_file_include
     return header_file_string
 
+# We have to extend this function when we want to support type-casting as our auto-inference will fail.
 def is_primitive(value) :
     try :
         _ = value["type"]
+        # This means that its either forced cast or a pointer to a primitive type.
+        # These are all the cases that I can think of right now.
+        if value["type"].split()[-1][:-1] in PRIMITIVES :
+            return True
     except :
         return True
     return False
+
+def get_primitive_type_from_json(value) :
+    try :
+        return value["type"]
+    except :
+        return None
 
 def is_pointer(value) :
     try :
@@ -49,6 +60,18 @@ def is_pointer(value) :
 
 def get_pointer_data_type(value) :
     return value["type"][:-1] # Removing the * from the Pointer
+
+def get_primitive_data_type(data) :
+    if type(data) is int :
+        return "int", data
+    elif type(data) is unicode and len(data) == 1 :
+        # C supports only char as the primitive data type
+        return "char", "\'{data}\'".format(data=data)
+    elif type(data) is float :
+        # Both float and double can be cast to double
+        return "double", data
+    else :
+        return None, data
 
 # Given an argument whether its a primitive type or a struct, it will construct it.
 # Things to keep in mind :
@@ -90,10 +113,24 @@ def construct_argument(argument, top_level=True) :
     else :
         # Primitive argument.
         # Now, now. What are the primitive values in C ???
-        if type(argument) is int :
+        # Now we can specify primitive values also using the JSON format instead of just writing the value itself.
+        data_type, value = get_primitive_data_type(argument)
+        if data_type != None :
             var_name = get_next_variable()
-            arg_init += INT_DEC_INIT.format(variableName=var_name, value=argument)
+            arg_init += PRIMITIVE_DEC_INIT.format(variableName=var_name, value=value, dataType=data_type)
             arg_string += var_name
+        elif get_primitive_type_from_json(argument) is not None:
+            # This means that we have a primitive data type, but through JSON.
+            # It can either be a pointer or value.
+            if is_pointer(argument) :
+                var_name = get_next_variable()
+                data_type = get_pointer_data_type(argument)
+                arg_init += PRIMITIVE_POINTER_DEC.format(dataType=data_type, variableName=var_name)
+                arg_init += PRIMITIVE_POINTER_INIT.format(variableName=var_name, value=argument["value"])
+                arg_string += var_name
+            else :
+                # This means that we specified a primitive data type using json
+                pass
         else :
             raise ValueError("Could not resolve the primitive data type")
     return arg_init, arg_string
@@ -125,8 +162,9 @@ def construct_return_value(function_call_string, value) :
     if not is_primitive(value) :
         return_value_string = STRUCT_DEC_INIT.format(structType=value["type"], variableName=var_name, value=function_call_string)
     else :
-        if type(value) is int :
-            return_value_string = INT_DEC_INIT.format(variableName=var_name, value=function_call_string)
+        data_type, data = get_primitive_data_type(value)
+        if data_type != None :
+            return_value_string = PRIMITIVE_DEC_INIT.format(dataType=data_type,variableName=var_name, value=function_call_string)
         else :
             raise ValueError("Could not resolve the primitive data type")
     return var_name, return_value_string
@@ -142,10 +180,15 @@ def wrap_with_assert(return_variable, return_value) :
                 separator = ARROW
             assert_string += wrap_with_assert(return_variable + separator + key, return_value["value"][key])
     else :
-        if type(return_value) is int :
-            assert_string = ASSERT.format(value1=return_variable, value2=return_value)
+        if is_pointer(return_value) :
+            pass
         else :
-            raise ValueError("Could not resolve the primitive data type")
+            data_type, data = get_primitive_data_type(return_value)
+            if data_type != None :
+                assert_string = ASSERT.format(value1=return_variable, value2=data)
+            else :
+                # This means that we have a primitive specified as JSON
+                pass
     return assert_string
 
 

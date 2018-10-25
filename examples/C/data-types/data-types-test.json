@@ -1,0 +1,28 @@
+{
+    "name": "data-",
+    "driver": "src/drivers/C",
+    "includes": ["data-types.h"],
+    "test-cases": [
+        {
+            "function-name": "testMultipleDataTypes",
+            "arguments": [
+                5, "a", 10.5, 20.5
+            ],
+            "return-value": 5
+        },
+        {
+            "function-name": "testCharReturnType",
+            "arguments": [
+                "a"
+            ],
+            "return-value": "a"
+        },
+        {
+            "function-name": "testDoubleReturnType",
+            "arguments": [
+                10.5
+            ],
+            "return-value": 10.5
+        }
+    ]
+}

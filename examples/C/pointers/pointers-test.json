@@ -28,6 +28,16 @@
                     "weight": 10
                 }
             }
+        },
+        {
+            "function-name": "modifyInt",
+            "arguments": [
+                {
+                    "type": "int*",
+                    "value": 10
+                }
+            ],
+            "return-value": 11
         }
     ]
 }

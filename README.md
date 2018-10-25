@@ -34,6 +34,7 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 |C functions which returns nested struct value.|✅|[Struct Return function]|[Struct Return function Unit Test]|
 |C functions which takes pointer arguments.|✅|[Pointer Function]|[Pointer Function Unit Test]|
 |C functions which returns pointer.|✅|[Pointer Function]|[Pointer Function Unit Test]|
+|Support for all primitive data-types.|✅|[Data Type Function]|[Data Type Unit Test]|
 |C functions which takes arrays (through pointer)|||||
 
 [Simple C function]: examples/C/simple-functions/simple-functions.h
@@ -50,3 +51,6 @@ make test-c-unit-tests test=examples/C/simple-functions/simple-functions-test
 
 [Pointer Function]: examples/C/pointers/pointers.h
 [Pointer Function Unit Test]: examples/C/pointers/pointers-test.c
+
+[Data Type Function]: examples/C/data-types/data-types.h
+[Data Type Unit Test]: examples/C/data-types/data-types-test.c
