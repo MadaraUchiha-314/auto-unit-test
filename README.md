@@ -3,6 +3,7 @@ No writing unit tests again!
 
 ## Goals
 - Generate unit tests from a given JSON file which contains the test.
+    - This project is currently at this stage.
 - Generate the above JSON file automatically by parsing the code.
 - Given the current state, execute the unit tests, take a snapshot and save it for later comparison.
 
