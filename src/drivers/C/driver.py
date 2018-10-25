@@ -1,6 +1,7 @@
 import json
 import sys
 from constants import *
+from types_inference import get_value_details
 
 # Suite to test
 suite = sys.argv[1]
@@ -21,7 +22,12 @@ def get_next_variable() :
 
 # Below are various functions to generate strings of various parts of the code.
 
-# Generate the header files string in C style given a list of header files.
+"""
+Generate the header files string in C style given a list of header files.
+
+@param list_of_headers: List of header files to be included.
+@return: String representation of the header file code.
+"""
 def generate_header_files(list_of_headers) :
     # This will be the final string that contains all the header files for the test case.
     header_file_string = ""
@@ -31,79 +37,49 @@ def generate_header_files(list_of_headers) :
         header_file_string += header_file_include
     return header_file_string
 
-# We have to extend this function when we want to support type-casting as our auto-inference will fail.
-def is_primitive(value) :
-    try :
-        _ = value["type"]
-        # This means that its either forced cast or a pointer to a primitive type.
-        # These are all the cases that I can think of right now.
-        if value["type"].split()[-1][:-1] in PRIMITIVES :
-            return True
-    except :
-        return True
-    return False
+"""Given an argument whether its a primitive type or a struct, it will construct it.
+Things to keep in mind :
+    * Nested structs.
+    * Self-Referential structs.
 
-def get_primitive_type_from_json(value) :
-    try :
-        return value["type"]
-    except :
-        return None
-
-def is_pointer(value) :
-    try :
-        if value["type"][-1] == STAR :
-            return True
-        else :
-            return False
-    except :
-        return False
-
-def get_pointer_data_type(value) :
-    return value["type"][:-1] # Removing the * from the Pointer
-
-def get_primitive_data_type(data) :
-    if type(data) is int :
-        return "int", data
-    elif type(data) is unicode and len(data) == 1 :
-        # C supports only char as the primitive data type
-        return "char", "\'{data}\'".format(data=data)
-    elif type(data) is float :
-        # Both float and double can be cast to double
-        return "double", data
-    else :
-        return None, data
-
-# Given an argument whether its a primitive type or a struct, it will construct it.
-# Things to keep in mind :
-# Nested structs.
-# Self-Referential structs.
+@param argument: The argument that we have to construct. Can be a primitive data type or a struct or a pointer or combinations of all.
+@param top_level: Whether its a top level declaration or a part of some nested structure.
+@return: String representation of Arguments initialisation code.
+@return: String representation of Arguments to the function code.
+"""
 def construct_argument(argument, top_level=True) :
     arg_init = ""
     arg_string = ""
-    # First lets find out if the argument is primitive or not.
-    if not is_primitive(argument) :
+
+    is_primitive, is_pointer, data_type, value = get_value_details(argument)
+
+    if not is_primitive :
         # Not a primitive argument.
         for key in argument["value"] :
             np_arg_init, np_arg_string = construct_argument(argument["value"][key], False)
             arg_init += np_arg_init
             arg_string += DOT + key + EQUAL + np_arg_string + COMMA
+
         arg_string = arg_string[:-1] # Removing the comma
         # We will add the opening and closing braces now.
+
         arg_string = OPEN_BRACE + arg_string + CLOSE_BRACE
+
+        # We have to check whether its a top level struct to not initialise it.
         if not top_level :
-            if is_pointer(argument) :
+            if is_pointer :
                 var_name = get_next_variable()
-                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=get_pointer_data_type(argument), variableName=var_name)
+                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=data_type, variableName=var_name)
                 pointer_variable_init = POINTER_INIT.format(variableName=var_name,value=arg_string)
                 arg_init += pointer_variable_dec + pointer_variable_init
                 return arg_init, var_name
             else :
                 return arg_init, arg_string
         else :
-            if is_pointer(argument) :
+            if is_pointer :
                 var_name = get_next_variable()
-                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=get_pointer_data_type(argument), variableName=var_name)
-                pointer_variable_init = STRUCT_POINTER_INIT.format(variableName=var_name,value=arg_string, dataType=get_pointer_data_type(argument))
+                pointer_variable_dec = STRUCT_POINTER_DEC.format(dataType=data_type, variableName=var_name)
+                pointer_variable_init = STRUCT_POINTER_INIT.format(variableName=var_name,value=arg_string, dataType=data_type)
                 arg_init += pointer_variable_dec + pointer_variable_init
                 return arg_init, var_name
             else :
@@ -112,30 +88,25 @@ def construct_argument(argument, top_level=True) :
                 return arg_init, var_name
     else :
         # Primitive argument.
-        # Now, now. What are the primitive values in C ???
-        # Now we can specify primitive values also using the JSON format instead of just writing the value itself.
-        data_type, value = get_primitive_data_type(argument)
-        if data_type != None :
+        if not is_pointer :
             var_name = get_next_variable()
             arg_init += PRIMITIVE_DEC_INIT.format(variableName=var_name, value=value, dataType=data_type)
             arg_string += var_name
-        elif get_primitive_type_from_json(argument) is not None:
-            # This means that we have a primitive data type, but through JSON.
-            # It can either be a pointer or value.
-            if is_pointer(argument) :
-                var_name = get_next_variable()
-                data_type = get_pointer_data_type(argument)
-                arg_init += PRIMITIVE_POINTER_DEC.format(dataType=data_type, variableName=var_name)
-                arg_init += PRIMITIVE_POINTER_INIT.format(variableName=var_name, value=argument["value"])
-                arg_string += var_name
-            else :
-                # This means that we specified a primitive data type using json
-                pass
         else :
-            raise ValueError("Could not resolve the primitive data type")
+            var_name = get_next_variable()
+            arg_init += PRIMITIVE_POINTER_DEC.format(dataType=data_type, variableName=var_name)
+            arg_init += PRIMITIVE_POINTER_INIT.format(variableName=var_name, value=argument["value"])
+            arg_string += var_name
     return arg_init, arg_string
 
-# Generates a function call string for the given function name and given arguments.
+"""
+Generates a function call string for the given function name and given arguments.
+
+@param function_name: The function name that we are going to test.
+@param arguments: The arguments to that function.
+@return: String representation of Arguments initialisation code.
+@return: String representation of function call code.
+"""
 def generate_function_call(function_name, arguments) :
     function_call_string = ""
     arguments_string = ""
@@ -156,40 +127,45 @@ def generate_function_call(function_name, arguments) :
 
     return arguments_init_string, function_call_string
 
-def construct_return_value(function_call_string, value) :
+"""
+Constructs the return value of the function.
+"""
+def construct_return_value(function_call_string, return_value) :
     var_name = get_next_variable()
     return_value_string = ""
-    if not is_primitive(value) :
-        return_value_string = STRUCT_DEC_INIT.format(structType=value["type"], variableName=var_name, value=function_call_string)
+    is_primitive, is_pointer, data_type, value = get_value_details(return_value)
+
+    if not is_primitive :
+        return_value_string = STRUCT_DEC_INIT.format(structType=return_value["type"], variableName=var_name, value=function_call_string)
     else :
-        data_type, data = get_primitive_data_type(value)
-        if data_type != None :
+        if not is_pointer :
             return_value_string = PRIMITIVE_DEC_INIT.format(dataType=data_type,variableName=var_name, value=function_call_string)
         else :
-            return_value_string = PRIMITIVE_DEC_INIT.format(dataType=value["type"],variableName=var_name, value=function_call_string)
+            return_value_string = PRIMITIVE_DEC_INIT.format(dataType=return_value["type"],variableName=var_name, value=function_call_string)
+
     return var_name, return_value_string
 
+"""
+Wraps the return variable of the function and the expected return value of the function in to an assert statement.
+"""
 def wrap_with_assert(return_variable, return_value) :
     assert_string = ""
-    if not is_primitive(return_value) :
+    is_primitive, is_pointer, data_type, value = get_value_details(return_value)
+
+    if not is_primitive :
         # Not a primitive value.
         # We recurse until we find a leaf node and do assert on that.
         for key in return_value["value"] :
             separator = DOT
-            if is_pointer(return_value) :
+            if is_pointer :
                 separator = ARROW
             assert_string += wrap_with_assert(return_variable + separator + key, return_value["value"][key])
     else :
-        if is_pointer(return_value) :
+        if is_pointer :
             return_variable = STAR + return_variable
             assert_string = ASSERT.format(value1=return_variable, value2=return_value["value"])
         else :
-            data_type, data = get_primitive_data_type(return_value)
-            if data_type != None :
-                assert_string = ASSERT.format(value1=return_variable, value2=data)
-            else :
-                # This means that we have a primitive specified as JSON
-                pass
+            assert_string = ASSERT.format(value1=return_variable, value2=value)
     return assert_string
 
 
