@@ -31,12 +31,12 @@ def get_pointer_data_type(value) :
     return value["type"][:-1] # Removing the * from the Pointer
 
 def get_primitive_data_type(data) :
-    if type(data) is int :
+    if isinstance(data, int) :
         return "int", data
-    elif type(data) is unicode and len(data) == 1 :
+    elif isinstance(data, unicode) and len(data) == 1 :
         # C supports only char as the primitive data type
         return "char", "\'{data}\'".format(data=data)
-    elif type(data) is float :
+    elif isinstance(data, float):
         # Both float and double can be cast to double
         return "double", data
     else :
