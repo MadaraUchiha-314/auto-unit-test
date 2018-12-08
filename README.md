@@ -1,4 +1,5 @@
-# auto-unit-test [![CircleCI](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master.svg?style=svg)](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master)
+# auto-unit-test [![CircleCI](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master.svg?style=svg)](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master) [![codecov](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test/branch/master/graph/badge.svg)](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test)
+
 No writing unit tests again!
 
 ## Goals
