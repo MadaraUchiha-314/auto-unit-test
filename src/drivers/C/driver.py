@@ -150,7 +150,7 @@ Wraps the return variable of the function and the expected return value of the f
 """
 def wrap_with_assert(return_variable, return_value) :
     assert_string = ""
-    is_primitive, is_pointer, _, value = get_value_details(return_value)
+    is_primitive, is_pointer, data_type, value = get_value_details(return_value)
 
     if not is_primitive :
         # Not a primitive value.
