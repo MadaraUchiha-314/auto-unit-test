@@ -1,4 +1,4 @@
-# auto-unit-test [![CircleCI](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master.svg?style=svg)](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master) [![codecov](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test/branch/master/graph/badge.svg)](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test)
+# auto-unit-test [![CircleCI](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master.svg?style=svg)](https://circleci.com/gh/MadaraUchiha-314/auto-unit-test/tree/master) [![codecov](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test/branch/master/graph/badge.svg)](https://codecov.io/gh/MadaraUchiha-314/auto-unit-test) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ed6ebb0171c84da6b1cef076e56c3cf4)](https://www.codacy.com/app/rohithr31/auto-unit-test?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MadaraUchiha-314/auto-unit-test&amp;utm_campaign=Badge_Grade)
 
 No writing unit tests again!
 
