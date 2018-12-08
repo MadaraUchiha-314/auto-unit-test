@@ -19,7 +19,7 @@ jobs:
           command: "make cov-all"
       - run:
           name: "Upload Reports"
-          command: "curl -s https://codecov.io/bash"
+          command: "bash <(curl -s https://codecov.io/bash)"
 workflows:
   version: 2
   build:
