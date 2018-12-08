@@ -60,7 +60,7 @@ def get_value_details(value) :
                 return True, False, data_type, data
             else :
                 return False, False, value["type"], value["value"]
-    except :
+    except Exception:
         # This means that its a primitive non-pointer data type
         data_type, data = get_primitive_data_type(value)
         return True, False, data_type, data
