@@ -9,10 +9,12 @@ c-unit-tests:
 	echo -e "G=gg\n:wq\n" | vim $(test).c
 
 	# Compiling the code
-	gcc "$(test).c" -o "bin/$(test)/output.out"
+	gcc -coverage "$(test).c" -o "bin/$(test)/output.out"
 test-c-unit-tests:
 	# Executing the generated binary
 	./bin/$(test)/output.out
+coverage-c-unit-tests:
+	gcov "$(test).c"
 all:
 	make c-unit-tests test=examples/C/simple-functions/simple-functions-test
 	make c-unit-tests test=examples/C/simple-structs/simple-structs-test
@@ -29,6 +31,17 @@ test-all:
 	make test-c-unit-tests test=examples/C/misc/misc-test
 	make test-c-unit-tests test=examples/C/pointers/pointers-test
 	make test-c-unit-tests test=examples/C/data-types/data-types-test
+cov-all:
+	make coverage-c-unit-tests test=simple-functions-test
+	make coverage-c-unit-tests test=simple-structs-test
+	make coverage-c-unit-tests test=nested-structs-test
+	make coverage-c-unit-tests test=struct-return-test
+	make coverage-c-unit-tests test=misc-test
+	make coverage-c-unit-tests test=pointers-test
+	make coverage-c-unit-tests test=data-types-test
 clean:
 	find . -path './bin/**/*.out' -delete
 	find . -path './examples/C/**/*.c' -delete
+	find . -path './*.gcda' -delete
+	find . -path './*.gcno' -delete
+	find . -path './*.gcov' -delete
