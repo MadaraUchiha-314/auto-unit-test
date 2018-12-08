@@ -2,3 +2,7 @@
 .DS_Store
 *.out
 bin/
+*.gcda
+*.gcno
+*.gcov
+coverage/*
